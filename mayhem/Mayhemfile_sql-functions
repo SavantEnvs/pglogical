@@ -1,0 +1,9 @@
+project: savantenvs/pglogical
+target: sql-functions
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/sql-functions/testsuite
+cmds:
+  - cmd: /mayhem/mayhem/out/fuzz/bin/fuzz_sql_functions
+    libfuzzer: true
+    timeout: 10

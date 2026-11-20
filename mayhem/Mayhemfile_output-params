@@ -1,0 +1,9 @@
+project: savantenvs/pglogical
+target: output-params
+testsuite:
+  - https://$MAYHEM_DOMAIN/$MAYHEM_PROJECT/$MAYHEM_TARGET/testsuite.tar
+  - file://mayhem/output-params/testsuite
+cmds:
+  - cmd: /mayhem/mayhem/out/fuzz/bin/fuzz_output_params
+    libfuzzer: true
+    timeout: 10

@@ -1,0 +1,14 @@
+CREATE EXTENSION pglogical;
+CREATE TABLE public.t(a int PRIMARY KEY, b text);
+SELECT pglogical.create_node('n', 'dbname=postgres');
+SELECT pglogical.replication_set_add_table('default', 'public.t');
+SELECT pg_create_logical_replication_slot('s', 'pglogical_output');
+INSERT INTO public.t VALUES (1, 'hello'), (2, 'world');
+UPDATE public.t SET b = 'there' WHERE a = 2;
+SELECT data FROM pg_logical_slot_peek_changes('s', NULL, NULL, 'min_proto_version', '1', 'max_proto_version', '1', 'startup_params_format', '1', 'proto_format', 'json', 'no_txinfo', 't', 'pglogical.replication_set_names', 'default');
+SELECT count(*) FROM pg_logical_slot_peek_changes('s', NULL, NULL, 'min_proto_version', '1', 'max_proto_version', '1', 'startup_params_format', '1', 'proto_format', 'json', 'pglogical.replicate_only_table', 'nodot');
+SELECT pglogical.pglogical_gen_slot_name('db', 'prov', 'sub');
+SELECT pglogical.pglogical_version();
+SELECT pglogical.replication_set_add_table('default', 'public.t', false, NULL, 'a >');
+SELECT relname, att_list FROM pglogical.show_repset_table_info('public.t'::regclass, ARRAY['default']);
+SELECT node_name FROM pglogical.pglogical_node_info();

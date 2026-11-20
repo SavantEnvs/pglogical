@@ -1,0 +1,12 @@
+min_proto_version
+1
+max_proto_version
+1
+startup_params_format
+1
+pglogical.replicate_only_table
+public.t2
+pglogical.forward_origins
+
+pglogical.replication_set_names
+default,rs2

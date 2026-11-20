@@ -1,0 +1,10 @@
+min_proto_version
+1
+max_proto_version
+1
+startup_params_format
+1
+pglogical.replication_set_names
+rs2
+relmeta_cache_size
+-1
